@@ -45,5 +45,21 @@ class CriarCadastro : AppCompatActivity() {
 
            
         }
+
+        /*
+        val request = Request.Builder()
+                .url("\"aws.lsfcloud.com.br:8080/api/auth")
+                .build()
+
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                for ((name, value) in response.headers) {
+                    println("$name: $value")
+                }
+
+                Log.d("teste", response.body!!.string())
+            }
+         */
     }
 }
