@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="resetarsenha">Esqueci a Senha</string>
+    <string name="criarconta">Criar Conta</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnCriarConta">Criar Conta</string>
+    <string name="ButtonBackLogin">Já tenho Cadastro</string>
+</resources>
