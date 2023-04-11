@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 class HttpHelper {
 
-    fun post(json: String) : String {
+    fun post(json: String): String {
 
         var cliente = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -39,6 +39,31 @@ class HttpHelper {
         val response = client.newCall(request).execute()
 
         return response.body.toString()
+
+
+        /*
+
+        //conexões
+        ec2-15-229-8-134.sa-east-1.compute.amazonaws.com
+
+        aws.lsfcloud.com.br
+
+
+        val client = OkHttpClient()
+
+        val request = Request.Builder()
+            .url("https://ec2-15-229-8-134.sa-east-1.compute.amazonaws.com:8080/api/auth/cadastro")
+            .build()
+
+        client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+            for ((name, value) in response.headers) {
+                println("$name: $value")
+            }
+
+            Log.d("teste", response.body!!.string())
+         */
 
     }
 
