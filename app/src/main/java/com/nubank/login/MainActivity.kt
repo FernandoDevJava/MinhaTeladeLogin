@@ -1,12 +1,12 @@
 package com.nubank.login
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +35,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.idButtonLogin.setOnClickListener { login() }
+
+        binding.idTextCriarConta.setOnClickListener {
+            var intentCriarCadastro = Intent(applicationContext, CriarCadastro::class.java)
+            startActivity(intentCriarCadastro)
+        }
+
     }
 
     fun login() {
@@ -43,13 +49,19 @@ class MainActivity : AppCompatActivity() {
                 binding.etLogin,
                 binding.tiLogin
             )
-        ) //limpa o erro quando o usuario começa a digitar no campo
-        binding.etSenha.addTextChangedListener(textListener(binding.etSenha, binding.tiSenha))
+        )
+        binding.etSenha.addTextChangedListener(
+            textListener(
+                binding.etSenha,
+                binding.tiSenha
+            )
+        )
 
+        //limpa o erro quando o usuario começa a digitar no campo
         if (binding.etLogin.text.toString().isEmpty()) {
             binding.tiLogin.error = "Digite seu Email"
         } else if (binding.etSenha.text.toString().isEmpty()) {
-            binding.tiLogin.error = "Digite sua senha"
+            binding.tiSenha.error = "Digite sua Senha"
         } else {
             var login = JSONObject()
 
@@ -70,7 +82,8 @@ class MainActivity : AppCompatActivity() {
                     if (resposta.has("statusCode")) {
                         Toast.makeText(
                             applicationContext,
-                            resposta.getString("message").replace("[","").replace("]","").replace("\"f",""),
+                            resposta.getString("message").replace("[", "").replace("]", "")
+                                .replace("\"f", ""),
                             Toast.LENGTH_LONG
                         ).show()
                     } else {

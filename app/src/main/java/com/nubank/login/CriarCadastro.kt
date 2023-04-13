@@ -1,68 +1,143 @@
 package com.nubank.login
 
-import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.Gson
-import com.nubank.login.http.HttpHelper
-import com.nubank.login.modelo.Usuario
+import com.google.android.material.textfield.TextInputLayout
+import com.nubank.login.databinding.ActivityCriarCadastroBinding
+import com.nubank.login.model.Mlogin
+import kotlinx.coroutines.*
+import org.json.JSONObject
 
 class CriarCadastro : AppCompatActivity() {
 
-    @SuppressLint("MissingInflatedId")
+    private lateinit var binding: ActivityCriarCadastroBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_criar_cadastro)
 
-        val backPageLogin = findViewById<View>(R.id.id_textJaTenhoConta)
-
-        backPageLogin.setOnClickListener {
-            val intentBackPageLogin = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intentBackPageLogin)
+        val SDK_iNT = Build.VERSION.SDK_INT
+        if (SDK_iNT > 8) {
+            val policy = ThreadPolicy.Builder()
+                .permitAll().build()
+            StrictMode.setThreadPolicy(policy)
         }
 
-        val buttonCriarUsuario = findViewById<Button>(R.id.id_button_Criar_Conta)
-        val editCriarUsuarioNome = findViewById<EditText>(R.id.id_edit_Nome)
-        val editCriarUsuarioSobrenome = findViewById<EditText>(R.id.id_edit_Sobrenome)
-        val editCriarUsuarioEmail = findViewById<EditText>(R.id.id_edit_EmailCriar)
-        val editCriarUsuarioSenha = findViewById<EditText>(R.id.id_edit_SenhaCriar)
+        binding = ActivityCriarCadastroBinding.inflate((layoutInflater))
+        setContentView(binding.root)
 
-        buttonCriarUsuario.setOnClickListener {
-            // criar um objeto usuário
-            val usuario = Usuario()
-            usuario.nome = editCriarUsuarioNome.text.toString()
-            usuario.sobrenome = editCriarUsuarioSobrenome.text.toString()
-            usuario.email = editCriarUsuarioEmail.text.toString()
-            usuario.senha = editCriarUsuarioSenha.text.toString()
+        binding.etbtnCriar.setOnClickListener { create() }
 
-            // converter o usuario em json
-            val gson = Gson()
-            val usuarioJson = gson.toJson(usuario)
-
-            var http = HttpHelper()
-            http.post(usuarioJson)
-
+        binding.ettextJaTenhoConta.setOnClickListener {
+            var intentMainActivity = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intentMainActivity)
         }
 
-        /*
-        val request = Request.Builder()
-                .url("\"aws.lsfcloud.com.br:8080/api/auth")
-                .build()
+    }
 
-            client.newCall(request).execute().use { response ->
-                if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
-                for ((name, value) in response.headers) {
-                    println("$name: $value")
+    fun create() {
+        binding.itNome.addTextChangedListener(
+            textListener(
+                binding.itNome,
+                binding.etNome
+            )
+        )
+        binding.itSobrenome.addTextChangedListener(
+            textListener(
+                binding.itSobrenome,
+                binding.etSobrenome
+            )
+        )
+        binding.etEmailCriar.addTextChangedListener(
+            textListener(
+                binding.etEmailCriar,
+                binding.itEmailCriar
+            )
+        )
+        binding.etSenhaCriar.addTextChangedListener(
+            textListener(
+                binding.etSenhaCriar,
+                binding.itSenhaCriar
+            )
+        )
+
+        //Limpa o erro quando o usuário começa a digitar
+        if (binding.itNome.text.toString().isEmpty()) {
+            binding.etNome.error = "Digite seu Nome"
+        } else if (binding.itSobrenome.text.toString().isEmpty()) {
+            binding.etSobrenome.error = "Digite seu Sobrenome"
+        } else if (binding.etEmailCriar.text.toString().isEmpty()) {
+            binding.itEmailCriar.error = "Digite seu E-mail"
+        } else if (binding.etSenhaCriar.text.toString().isEmpty()) {
+            binding.itSenhaCriar.error = "Digite sua Senha"
+        } else {
+            var create = JSONObject()
+
+            create.put("nome", binding.itNome.text)
+            create.put("sobrenome", binding.itSobrenome.text)
+            create.put("email", binding.etEmailCriar.text)
+            create.put("senha", binding.etSenhaCriar.text)
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val res: Deferred<String?> = async {
+                    Mlogin().login(json = create)
                 }
 
-                Log.d("teste", response.body!!.string())
+                val response = res.await().toString()
+
+                withContext(Dispatchers.Main) {
+                    var respostacreate = JSONObject(response)
+
+                    if (respostacreate.has("statusCode")) {
+                        Toast.makeText(
+                            applicationContext,
+                            respostacreate.getString("message").replace("[", "").replace("]", "")
+                                .replace("\"f", ""),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        if (respostacreate.has("token")) {
+                            var token = respostacreate.getString("token")
+                            Toast.makeText(applicationContext, token, Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                "Erro ao obter token",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
             }
-         */
+        }
+
+    }
+
+
+    private fun textListener(input: EditText, view: TextInputLayout): TextWatcher {
+        return object : TextWatcher {
+
+            override fun afterTextChanged(edt: Editable?) {}
+
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int,
+            ) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                view.isErrorEnabled = false
+            }
+        }
     }
 }
