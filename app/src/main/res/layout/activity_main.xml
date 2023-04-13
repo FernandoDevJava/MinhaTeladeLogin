@@ -17,47 +17,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img" />
 
-    <EditText
-        android:id="@+id/id_edit_Email"
-        android:layout_width="300dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiLogin"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
-        android:inputType="textEmailAddress"
-        android:hint="E-mail"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:passwordToggleEnabled="false">
 
-    <EditText
-        android:id="@+id/id_edit_Senha"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:inputType="textPassword"
-        android:hint="Senha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_edit_Email" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Login" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/id_text_ResetarSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="16dp"
         android:padding="5dp"
         android:text="@string/resetarsenha"
-        app:layout_constraintStart_toStartOf="@+id/id_edit_Senha"
-        app:layout_constraintTop_toBottomOf="@+id/id_edit_Senha" />
+        app:layout_constraintTop_toBottomOf="@+id/tiSenha"
+        tools:layout_editor_absoluteX="56dp" />
 
     <TextView
         android:id="@+id/id_text_CriarConta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:padding="5dp"
         android:text="@string/criarconta"
-        app:layout_constraintEnd_toEndOf="@+id/id_edit_Senha"
-        app:layout_constraintTop_toBottomOf="@+id/id_edit_Senha" />
+        app:layout_constraintStart_toEndOf="@+id/id_text_ResetarSenha"
+        app:layout_constraintTop_toTopOf="@+id/id_text_ResetarSenha" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/id_button_login"
@@ -85,5 +80,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiSenha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiLogin"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:password="true" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

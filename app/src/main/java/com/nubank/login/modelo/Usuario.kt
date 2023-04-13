@@ -1,4 +1,4 @@
-package com.nubank.login.model
+package com.nubank.login.modelo
 
 class Usuario {
 

@@ -9,7 +9,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.nubank.login.http.HttpHelper
-import com.nubank.login.model.Usuario
+import com.nubank.login.modelo.Usuario
 
 class CriarCadastro : AppCompatActivity() {
 
