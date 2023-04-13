@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.nubank.login.http.HttpHelper
 import com.nubank.login.model.Usuario
 
 class CriarCadastro : AppCompatActivity() {
@@ -18,10 +19,10 @@ class CriarCadastro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_criar_cadastro)
 
-        var backPageLogin = findViewById<View>(R.id.id_textJaTenhoConta)
+        val backPageLogin = findViewById<View>(R.id.id_textJaTenhoConta)
 
         backPageLogin.setOnClickListener {
-            var intentBackPageLogin = Intent(applicationContext, MainActivity::class.java)
+            val intentBackPageLogin = Intent(applicationContext, MainActivity::class.java)
             startActivity(intentBackPageLogin)
         }
 
@@ -43,7 +44,9 @@ class CriarCadastro : AppCompatActivity() {
             val gson = Gson()
             val usuarioJson = gson.toJson(usuario)
 
-           
+            var http = HttpHelper()
+            http.post(usuarioJson)
+
         }
 
         /*
