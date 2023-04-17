@@ -83,35 +83,26 @@ class CriarCadastro : AppCompatActivity() {
             create.put("senha", binding.etSenhaCriar.text)
 
             CoroutineScope(Dispatchers.IO).launch {
-                val rest: Deferred<String?> = async {
+                val rest: Deferred<Pair<String,String>> = async {
                     Mlogin().createUser(json = create)
                 }
 
-                val responses = rest.await().toString()
+                val responses = rest.await()
 
 
                 withContext(Dispatchers.Main) {
-                    Log.d("testeRsResponse", responses)
-                    var respostacreate = JSONObject(responses)
-                    if (responses.isEmpty()) {
-                        Toast.makeText(
-                            applicationContext, "Usuário criado com sucesso!", Toast.LENGTH_SHORT
-                        ).show()
-                    } else if (respostacreate.has("statusCode")) {
-                        Toast.makeText(
-                            applicationContext,
-                            respostacreate.getString("message").replace("[", "").replace("]", "")
-                                .replace("\"f", ""),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    } else {
-                        if (respostacreate.has("token")) {
-                            var token = respostacreate.getString("token")
-                            Toast.makeText(applicationContext, token, Toast.LENGTH_LONG).show()
-                        } else {
+                    if(responses.first == "201"){
+                        Toast.makeText(applicationContext, "Cadastrado com sucesso!", Toast.LENGTH_LONG).show()
+                    }else{
+                        var erro = responses.second
+
+                        var jsonErro = JSONObject(erro)
+
+                        if(jsonErro.has("message")){
                             Toast.makeText(
                                 applicationContext,
-                                "Email já Cadastrado!",
+                                jsonErro.getString("message").replace("[", "").replace("]", "")
+                                    .replace("\"f", ""),
                                 Toast.LENGTH_LONG
                             ).show()
                         }
