@@ -7,6 +7,7 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,10 +24,9 @@ class CriarCadastro : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val SDK_iNT = Build.VERSION.SDK_INT
-        if (SDK_iNT > 8) {
-            val policy = ThreadPolicy.Builder()
-                .permitAll().build()
+        val SDK_zINT = Build.VERSION.SDK_INT
+        if (SDK_zINT > 8) {
+            val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
         }
 
@@ -46,26 +46,22 @@ class CriarCadastro : AppCompatActivity() {
     fun create() {
         binding.itNome.addTextChangedListener(
             textListener(
-                binding.itNome,
-                binding.etNome
+                binding.itNome, binding.etNome
             )
         )
         binding.itSobrenome.addTextChangedListener(
             textListener(
-                binding.itSobrenome,
-                binding.etSobrenome
+                binding.itSobrenome, binding.etSobrenome
             )
         )
         binding.etEmailCriar.addTextChangedListener(
             textListener(
-                binding.etEmailCriar,
-                binding.itEmailCriar
+                binding.etEmailCriar, binding.itEmailCriar
             )
         )
         binding.etSenhaCriar.addTextChangedListener(
             textListener(
-                binding.etSenhaCriar,
-                binding.itSenhaCriar
+                binding.etSenhaCriar, binding.itSenhaCriar
             )
         )
 
@@ -87,16 +83,21 @@ class CriarCadastro : AppCompatActivity() {
             create.put("senha", binding.etSenhaCriar.text)
 
             CoroutineScope(Dispatchers.IO).launch {
-                val res: Deferred<String?> = async {
-                    Mlogin().login(json = create)
+                val rest: Deferred<String?> = async {
+                    Mlogin().createUser(json = create)
                 }
 
-                val response = res.await().toString()
+                val responses = rest.await().toString()
+
 
                 withContext(Dispatchers.Main) {
-                    var respostacreate = JSONObject(response)
-
-                    if (respostacreate.has("statusCode")) {
+                    Log.d("testeRsResponse", responses)
+                    var respostacreate = JSONObject(responses)
+                    if (responses.isEmpty()) {
+                        Toast.makeText(
+                            applicationContext, "Usuário criado com sucesso!", Toast.LENGTH_SHORT
+                        ).show()
+                    } else if (respostacreate.has("statusCode")) {
                         Toast.makeText(
                             applicationContext,
                             respostacreate.getString("message").replace("[", "").replace("]", "")
@@ -110,7 +111,7 @@ class CriarCadastro : AppCompatActivity() {
                         } else {
                             Toast.makeText(
                                 applicationContext,
-                                "Erro ao obter token",
+                                "Email já Cadastrado!",
                                 Toast.LENGTH_LONG
                             ).show()
                         }

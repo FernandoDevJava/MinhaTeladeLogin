@@ -27,6 +27,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNome"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        android:textColorHint="@color/black_light"
         app:passwordToggleEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -36,6 +39,10 @@
             android:layout_gravity="center"
             android:background="@drawable/container_input_border"
             android:hint="Email"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,6 +53,7 @@
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:text="@string/ButtonBackLogin"
+        android:textColor="@color/black_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etbtnCriar" />
@@ -73,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Desenvolvido por Fernando Machado"
+        android:textColor="@color/black_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -87,7 +96,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itEmailCriar"
-        app:passwordToggleEnabled="true">
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        android:textColorHint="@color/black_light"
+        app:endIconTint="@color/black_light"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/black_light" >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSenhaCriar"
@@ -96,6 +110,11 @@
             android:layout_gravity="center"
             android:background="@drawable/container_input_border"
             android:hint="Senha"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black"
+            app:endIconTint="@color/black_light"
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -106,6 +125,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
         app:layout_constraintStart_toStartOf="@+id/itEmailCriar"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        android:textColorHint="@color/black_light"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -113,7 +135,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/container_input_border"
-            android:hint="Nome" />
+            android:hint="Nome"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -122,6 +148,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="220dp"
         app:layout_constraintEnd_toEndOf="@+id/itEmailCriar"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        android:textColorHint="@color/black_light"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -129,6 +158,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/container_input_border"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black"
             android:hint="Sobrenome" />
     </com.google.android.material.textfield.TextInputLayout>
 

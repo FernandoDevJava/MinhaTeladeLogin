@@ -22,6 +22,19 @@ class Mlogin {
             .build()
 
         client.newCall(request).execute().use { response ->
+            //response.code
+            return response.body!!.string()
+        }
+    }
+
+    fun createUser(json: JSONObject): String {
+        Log.d("testeJson", json.toString())
+        val requestCreate = Request.Builder()
+            .url("http://home.lsfcloud.com.br:8080/api/auth/cadastro")
+            .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
+            .build()
+
+        client.newCall(requestCreate).execute().use { response ->
             return response.body!!.string()
         }
     }
