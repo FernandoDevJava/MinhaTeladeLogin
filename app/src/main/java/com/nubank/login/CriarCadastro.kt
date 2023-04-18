@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.nubank.login.databinding.ActivityCriarCadastroBinding
@@ -40,6 +41,7 @@ class CriarCadastro : AppCompatActivity() {
         }
 
     }
+
 
 
     fun create() {

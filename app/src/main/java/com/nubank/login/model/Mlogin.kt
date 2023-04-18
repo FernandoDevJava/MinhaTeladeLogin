@@ -38,4 +38,28 @@ class Mlogin {
             return Pair(response.code.toString(), response.body.string())
         }
     }
+
+    fun enviarEmail(json: JSONObject): Pair<String,String> {
+        Log.d("testeJsonEnvioEmail", json.toString())
+        val requestResetEmail = Request.Builder()
+            .url("http://home.lsfcloud.com.br:8080/api/auth/recuperarsenha")
+            .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
+            .build()
+
+        client.newCall(requestResetEmail).execute().use { response ->
+            return Pair(response.code.toString(), response.body.string())
+        }
+    }
+
+    fun resetarSenha(json: JSONObject): Pair<String,String> {
+        Log.d("testeJsonEnvioEmail", json.toString())
+        val requestResetarSenha = Request.Builder()
+            .url("http://home.lsfcloud.com.br:8080/api/auth/recuperarsenhaToken")
+            .patch(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
+            .build()
+
+        client.newCall(requestResetarSenha).execute().use { response ->
+            return Pair(response.code.toString(), response.body.string())
+        }
+    }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".EmailToken">
 
     <ImageView
         android:id="@+id/imageView"
@@ -18,20 +18,20 @@
         app:srcCompat="@drawable/img" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiLogin"
+        android:id="@+id/itEmailToken"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="220dp"
         android:layout_marginEnd="32dp"
+        android:textColorHint="@color/black_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColorHint="@color/black_light"
         app:passwordToggleEnabled="false">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etLogin"
+            android:id="@+id/etEmailToken"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -47,64 +47,40 @@
             android:textColorLink="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/id_text_ResetarSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:text="@string/resetarsenha"
-        android:textColor="@color/black_light"
-        app:layout_constraintStart_toStartOf="@+id/tiSenha"
-        app:layout_constraintTop_toBottomOf="@+id/tiSenha" />
-
-    <TextView
-        android:id="@+id/id_text_CriarConta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:text="@string/criarconta"
-        android:textColor="@color/black_light"
-        app:layout_constraintEnd_toEndOf="@+id/tiSenha"
-        app:layout_constraintTop_toBottomOf="@+id/tiSenha" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/idButtonLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginBottom="200dp"
-        android:background="@drawable/container_button_login"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
-        android:text="@string/btnLogin"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
-
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Desenvolvido por Fernando Machado"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tiSenha"
+        android:id="@+id/itToken"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
+        android:textColorHint="@color/black_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itEmailToken"
+        app:passwordToggleEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etToken"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/container_input_border"
+            android:hint="Chave"
+            android:inputType="text"
+            android:shadowColor="@color/black"
+            android:singleLine="false"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiNovaSenha"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:textColorHint="@color/black_light"
         app:boxStrokeColor="@color/black"
         app:endIconCheckable="true"
@@ -113,21 +89,49 @@
         app:hintTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiLogin"
+        app:layout_constraintTop_toBottomOf="@+id/itToken"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/black_light"
-        tools:ignore="MissingConstraints">
+        app:passwordToggleTint="@color/black_light">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSenha"
+            android:id="@+id/etNovaSenha"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/container_input_border"
-            android:hint="Senha"
+            android:hint="Nova Senha"
             android:inputType="textPassword"
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/idButtonResetar"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/container_button_login"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:text="@string/buttonResetarSenha"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/id_text_Main_Activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Fazer Login"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idButtonResetar" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

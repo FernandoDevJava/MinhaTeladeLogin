@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blackbutton">#202020</color>
     <color name="black_light">#777777</color>
+    <color name="white_backgrount_text">#ECECEC</color>
     <color name="dark_red">#CA1010</color>
 </resources>

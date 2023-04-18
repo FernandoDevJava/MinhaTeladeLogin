@@ -34,11 +34,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.idButtonLogin.setOnClickListener { login() }
+        binding.idButtonLogin.setOnClickListener { login()
+            var testepage = Intent(applicationContext, Aplicacao::class.java)
+
+        }
 
         binding.idTextCriarConta.setOnClickListener {
             var intentCriarCadastro = Intent(applicationContext, CriarCadastro::class.java)
             startActivity(intentCriarCadastro)
+        }
+
+        binding.idTextResetarSenha.setOnClickListener {
+            var intentResetSenha = Intent(applicationContext, ResetSenha::class.java)
+            startActivity(intentResetSenha)
         }
 
     }
@@ -78,6 +86,8 @@ class MainActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     var resposta = JSONObject(response)
+
+
 
                     if (resposta.has("statusCode")) {
                         Toast.makeText(

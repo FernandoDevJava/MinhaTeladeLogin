@@ -5,4 +5,8 @@
     <string name="btnLogin">Login</string>
     <string name="btnCriarConta">Criar Conta</string>
     <string name="ButtonBackLogin">Já tenho Cadastro</string>
+    <string name="buttonSair">Sair da Conta</string>
+    <string name="buttonEnviarToken">Enviar</string>
+    <string name="buttonResetarSenha">Resetar Senha</string>
+    <string name="textDigiteEmail">Prencha o campo abaixo com e-mail para receber a chave de reset de senha em seu e-mail.</string>
 </resources>
