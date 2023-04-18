@@ -1,5 +1,6 @@
 package com.nubank.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -20,6 +21,7 @@ import org.json.JSONObject
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.idButtonLogin.setOnClickListener { login()
+        binding.idButtonLogin.setOnClickListener {
+            login()
             var testepage = Intent(applicationContext, Aplicacao::class.java)
 
         }
@@ -76,38 +79,48 @@ class MainActivity : AppCompatActivity() {
             login.put("email", binding.etLogin.text)
             login.put("senha", binding.etSenha.text)
 
+            requisicao(login)
+        }
+    }
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val res: Deferred<String?> = async {
-                    Mlogin().login(json = login)
-                }
+    fun requisicao(login: JSONObject) {
+        ProgressBarUtils.show(context)
+        CoroutineScope(Dispatchers.IO).launch {
+            val res: Deferred<Pair<String, String>> = async {
+                Mlogin().login(json = login)
+            }
 
-                val response = res.await().toString()
+            val response = res.await()
 
-                withContext(Dispatchers.Main) {
-                    var resposta = JSONObject(response)
-
-
-
-                    if (resposta.has("statusCode")) {
+            withContext(Dispatchers.Main) {
+                ProgressBarUtils.close(context)
+                if (response.first != "erro") {
+                    if (response.first == "200") {
                         Toast.makeText(
                             applicationContext,
-                            resposta.getString("message").replace("[", "").replace("]", "")
-                                .replace("\"f", ""),
+                            "Login Feito com sucesso!",
                             Toast.LENGTH_LONG
                         ).show()
                     } else {
-                        if (resposta.has("token")) {
-                            var token = resposta.getString("token")
-                            Toast.makeText(applicationContext, token, Toast.LENGTH_LONG).show()
-                        } else {
+                        var erro = response.second
+
+                        var jsonErro = JSONObject(erro)
+
+                        if (jsonErro.has("message")) {
                             Toast.makeText(
                                 applicationContext,
-                                "Erro ao obter token",
+                                jsonErro.getString("message").replace("[", "").replace("]", "")
+                                    .replace("\"f", ""),
                                 Toast.LENGTH_LONG
                             ).show()
                         }
                     }
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "Erro ao obter requisição, tente novamente!",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

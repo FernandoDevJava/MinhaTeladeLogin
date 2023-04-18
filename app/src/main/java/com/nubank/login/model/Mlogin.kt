@@ -15,15 +15,19 @@ class Mlogin {
         val MEDIA_TYPE_MARKDOWN = "application/json".toMediaType()
     }
 
-    fun login(json: JSONObject): String {
+    fun login(json: JSONObject): Pair<String,String> {
         val request = Request.Builder()
             .url("http://home.lsfcloud.com.br:8080/api/auth/login")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
             .build()
 
-        client.newCall(request).execute().use { response ->
-            //response.code
-            return response.body!!.string()
+        try {
+            client.newCall(request).execute().use { response ->
+                //response.code
+                return Pair(response.code.toString(), response.body.string())
+            }
+        }catch (e: IOException){
+            return Pair("erro","erro")
         }
     }
 
