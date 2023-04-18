@@ -7,7 +7,6 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -83,22 +82,25 @@ class CriarCadastro : AppCompatActivity() {
             create.put("senha", binding.etSenhaCriar.text)
 
             CoroutineScope(Dispatchers.IO).launch {
-                val rest: Deferred<Pair<String,String>> = async {
+                val rest: Deferred<Pair<String, String>> = async {
                     Mlogin().createUser(json = create)
                 }
 
                 val responses = rest.await()
 
-
                 withContext(Dispatchers.Main) {
-                    if(responses.first == "201"){
-                        Toast.makeText(applicationContext, "Cadastrado com sucesso!", Toast.LENGTH_LONG).show()
-                    }else{
+                    if (responses.first == "201") {
+                        Toast.makeText(
+                            applicationContext,
+                            "Cadastrado com sucesso!",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
                         var erro = responses.second
 
                         var jsonErro = JSONObject(erro)
 
-                        if(jsonErro.has("message")){
+                        if (jsonErro.has("message")) {
                             Toast.makeText(
                                 applicationContext,
                                 jsonErro.getString("message").replace("[", "").replace("]", "")
@@ -110,7 +112,6 @@ class CriarCadastro : AppCompatActivity() {
                 }
             }
         }
-
     }
 
 
