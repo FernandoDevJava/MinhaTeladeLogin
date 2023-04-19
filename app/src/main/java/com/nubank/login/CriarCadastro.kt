@@ -1,5 +1,6 @@
 package com.nubank.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -20,15 +21,12 @@ import org.json.JSONObject
 class CriarCadastro : AppCompatActivity() {
 
     private lateinit var binding: ActivityCriarCadastroBinding
+    private var context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val SDK_zINT = Build.VERSION.SDK_INT
-        if (SDK_zINT > 8) {
-            val policy = ThreadPolicy.Builder().permitAll().build()
-            StrictMode.setThreadPolicy(policy)
-        }
+        Util.verificaPermissaoInternet()
 
         binding = ActivityCriarCadastroBinding.inflate((layoutInflater))
         setContentView(binding.root)
@@ -82,34 +80,36 @@ class CriarCadastro : AppCompatActivity() {
             create.put("email", binding.etEmailCriar.text)
             create.put("senha", binding.etSenhaCriar.text)
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val rest: Deferred<Pair<String, String>> = async {
-                    Mlogin().createUser(json = create)
-                }
+            requisicaoCadastro(create)
+        }
+    }
 
-                val responses = rest.await()
+    fun requisicaoCadastro(create: JSONObject) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val rest: Deferred<Pair<String, String>> = async {
+                Mlogin().createUser(json = create)
+            }
 
-                withContext(Dispatchers.Main) {
+            val responses = rest.await()
+
+            withContext(Dispatchers.Main) {
+                if (responses.first != "erro") {
                     if (responses.first == "201") {
-                        Toast.makeText(
-                            applicationContext,
-                            "Cadastrado com sucesso!",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        Util.menssagemToast(context, context.getString(R.string.usuario_criado))
                     } else {
-                        var erro = responses.second
+                        var respostaErro = responses.second
 
-                        var jsonErro = JSONObject(erro)
+                        var jsonErro = JSONObject(respostaErro)
 
                         if (jsonErro.has("message")) {
-                            Toast.makeText(
-                                applicationContext,
-                                jsonErro.getString("message").replace("[", "").replace("]", "")
-                                    .replace("\"f", ""),
-                                Toast.LENGTH_LONG
-                            ).show()
+                            var erro = Util.removeCaracteresErro(jsonErro.getString("message"))
+                            Util.menssagemToast(context, erro)
+                        } else {
+                            Util.menssagemToast(context, context.getString(R.string.erro_geral))
                         }
                     }
+                } else {
+                    Util.menssagemToast(context, context.getString(R.string.erro_requisicao))
                 }
             }
         }
