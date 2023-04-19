@@ -82,6 +82,7 @@ class ResetSenha : AppCompatActivity() {
                                     .replace("\"f", ""),
                                 Toast.LENGTH_LONG
                             ).show()
+                            ProgressBarUtils.close(context)
                         }
                     }
                 }
