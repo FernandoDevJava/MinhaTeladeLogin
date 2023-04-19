@@ -14,7 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.nubank.login.databinding.ActivityMainBinding
 import com.nubank.login.model.Mlogin
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 
@@ -36,11 +41,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.idButtonLogin.setOnClickListener {
-            login()
-            var testepage = Intent(applicationContext, Aplicacao::class.java)
-
-        }
+        binding.idButtonLogin.setOnClickListener { login() }
 
         binding.idTextCriarConta.setOnClickListener {
             var intentCriarCadastro = Intent(applicationContext, CriarCadastro::class.java)

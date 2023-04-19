@@ -1,5 +1,6 @@
 package com.nubank.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ import org.json.JSONObject
 class ResetSenha : AppCompatActivity() {
 
     private lateinit var binding: ActivityResetSenhaBinding
+    private var context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +59,7 @@ class ResetSenha : AppCompatActivity() {
                     Mlogin().enviarEmail(json = resetEmail)
                 }
 
+                ProgressBarUtils.show(context)
                 val respostaEmail = rests.await()
 
                 withContext(Dispatchers.Main) {
@@ -66,6 +69,7 @@ class ResetSenha : AppCompatActivity() {
                             "Email Enviado!",
                             Toast.LENGTH_LONG
                         ).show()
+                        ProgressBarUtils.close(context)
                     } else {
                         var erroEnvioEmail = respostaEmail.second
 
