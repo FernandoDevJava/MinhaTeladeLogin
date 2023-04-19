@@ -1,6 +1,7 @@
 package com.nubank.login.model
 
 import android.util.Log
+import com.nubank.login.Util
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -15,55 +16,66 @@ class Mlogin {
         val MEDIA_TYPE_MARKDOWN = "application/json".toMediaType()
     }
 
-    fun login(json: JSONObject): Pair<String,String> {
+    fun login(json: JSONObject): Pair<String, String> {
         val request = Request.Builder()
-            .url("http://home.lsfcloud.com.br:8080/api/auth/login")
+            .url(Util.url() + "auth/recuperarsenha")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
             .build()
 
         try {
             client.newCall(request).execute().use { response ->
-                //response.code
                 return Pair(response.code.toString(), response.body.string())
             }
-        }catch (e: IOException){
-            return Pair("erro","erro")
+        } catch (e: IOException) {
+            return Pair("erro", "erro")
         }
     }
 
-    fun createUser(json: JSONObject): Pair<String,String> {
+    fun createUser(json: JSONObject): Pair<String, String> {
         Log.d("testeJson", json.toString())
-        val requestCreate = Request.Builder()
-            .url("http://home.lsfcloud.com.br:8080/api/auth/cadastro")
+        val request = Request.Builder()
+            .url(Util.url() + "auth/recuperarsenha")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
             .build()
 
-        client.newCall(requestCreate).execute().use { response ->
-            return Pair(response.code.toString(), response.body.string())
+        try {
+            client.newCall(request).execute().use { response ->
+                return Pair(response.code.toString(), response.body.string())
+            }
+        } catch (e: IOException) {
+            return Pair("erro", "erro")
         }
     }
 
-    fun enviarEmail(json: JSONObject): Pair<String,String> {
+    fun enviarEmail(json: JSONObject): Pair<String, String> {
         Log.d("testeJsonEnvioEmail", json.toString())
-        val requestResetEmail = Request.Builder()
-            .url("http://home.lsfcloud.com.br:8080/api/auth/recuperarsenha")
+        val request = Request.Builder()
+            .url(Util.url() + "auth/recuperarsenha")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
             .build()
 
-        client.newCall(requestResetEmail).execute().use { response ->
-            return Pair(response.code.toString(), response.body.string())
+        try {
+            client.newCall(request).execute().use { response ->
+                return Pair(response.code.toString(), response.body.string())
+            }
+        } catch (e: IOException) {
+            return Pair("erro", "erro")
         }
     }
 
-    fun resetarSenha(json: JSONObject): Pair<String,String> {
+    fun resetarSenha(json: JSONObject): Pair<String, String> {
         Log.d("testeJsonEnvioEmail", json.toString())
-        val requestResetarSenha = Request.Builder()
-            .url("http://home.lsfcloud.com.br:8080/api/auth/recuperarsenhaToken")
+        val request = Request.Builder()
+            .url(Util.url() + "auth/recuperarsenha")
             .patch(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
             .build()
 
-        client.newCall(requestResetarSenha).execute().use { response ->
-            return Pair(response.code.toString(), response.body.string())
+        try {
+            client.newCall(request).execute().use { response ->
+                return Pair(response.code.toString(), response.body.string())
+            }
+        } catch (e: IOException) {
+            return Pair("erro", "erro")
         }
     }
 }

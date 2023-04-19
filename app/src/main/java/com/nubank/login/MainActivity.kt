@@ -31,12 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val SDK_INT = Build.VERSION.SDK_INT
-        if (SDK_INT > 8) {
-            val policy = ThreadPolicy.Builder()
-                .permitAll().build()
-            StrictMode.setThreadPolicy(policy)
-        }
+        Util.verificaPermissaoInternet()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -97,31 +92,21 @@ class MainActivity : AppCompatActivity() {
                 ProgressBarUtils.close(context)
                 if (response.first != "erro") {
                     if (response.first == "200") {
-                        Toast.makeText(
-                            applicationContext,
-                            "Login Feito com sucesso!",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        Util.menssagemToast(context, context.getString(R.string.login_sucesso))
                     } else {
-                        var erro = response.second
+                        var respostaErro = response.second
 
-                        var jsonErro = JSONObject(erro)
+                        var jsonErro = JSONObject(respostaErro)
 
                         if (jsonErro.has("message")) {
-                            Toast.makeText(
-                                applicationContext,
-                                jsonErro.getString("message").replace("[", "").replace("]", "")
-                                    .replace("\"f", ""),
-                                Toast.LENGTH_LONG
-                            ).show()
+                            var erro = Util.removeCaracteresErro(jsonErro.getString("message"))
+                            Util.menssagemToast(context, erro)
+                        } else {
+                            Util.menssagemToast(context, context.getString(R.string.erro_geral))
                         }
                     }
                 } else {
-                    Toast.makeText(
-                        applicationContext,
-                        "Erro ao obter requisição, tente novamente!",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Util.menssagemToast(context, context.getString(R.string.erro_requisicao))
                 }
             }
         }
