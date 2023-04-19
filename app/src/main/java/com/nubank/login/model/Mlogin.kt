@@ -32,7 +32,7 @@ class Mlogin {
     }
 
     fun createUser(json: JSONObject): Pair<String, String> {
-        Log.d("testeJson", json.toString())
+        //Log.d("testeJsonCadastro", json.toString())
         val request = Request.Builder()
             .url(Util.url() + "auth/cadastro")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
@@ -48,7 +48,7 @@ class Mlogin {
     }
 
     fun enviarEmail(json: JSONObject): Pair<String, String> {
-        Log.d("testeJsonEnvioEmail", json.toString())
+        //Log.d("testeJsonEnvioEmail", json.toString())
         val request = Request.Builder()
             .url(Util.url() + "auth/recuperarsenha")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
@@ -64,7 +64,7 @@ class Mlogin {
     }
 
     fun resetarSenha(json: JSONObject): Pair<String, String> {
-        Log.d("testeJsonEnvioEmail", json.toString())
+        //Log.d("testeJsonResetSenha", json.toString())
         val request = Request.Builder()
             .url(Util.url() + "auth/recuperarsenhaToken")
             .patch(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
