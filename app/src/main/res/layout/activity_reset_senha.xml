@@ -21,7 +21,7 @@
         android:id="@+id/idButtonEnviarToken"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="230dp"
         android:background="@drawable/container_button_login"
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
@@ -93,11 +93,12 @@
         android:id="@+id/id_Text_Page_Token"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:text="Resetar Senha"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/idButtonEnviarToken"
+        android:text="@string/buttonTenhoToken"
+        android:textColor="@color/black_light"
+        android:textSize="16dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idButtonEnviarToken" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

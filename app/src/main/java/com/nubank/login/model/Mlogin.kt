@@ -48,7 +48,7 @@ class Mlogin {
     }
 
     fun enviarEmail(json: JSONObject): Pair<String, String> {
-        //Log.d("testeJsonEnvioEmail", json.toString())
+        Log.d("testeJsonEnvioEmail", json.toString())
         val request = Request.Builder()
             .url(Util.url() + "auth/recuperarsenha")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))

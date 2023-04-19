@@ -8,10 +8,13 @@
     <string name="buttonSair">Sair da Conta</string>
     <string name="buttonEnviarToken">Enviar</string>
     <string name="buttonResetarSenha">Resetar Senha</string>
+    <string name="buttonTenhoToken">Tenho a Chave</string>
     <string name="textDigiteEmail">Prencha o campo abaixo com e-mail para receber a chave de reset de senha em seu e-mail.</string>
 
     <string name="login_sucesso">Login Feito com sucesso!</string>
     <string name="usuario_criado">Usuário criado com sucesso!</string>
+    <string name="reset_senha">Nova senha Definida!</string>
+    <string name="envio_token">Chave Enviada com sucesso!</string>
     <string name="erro_geral">Erro, tente novamente!</string>
     <string name="erro_requisicao">Erro ao obter requisição, tente novamente!</string>
 </resources>

@@ -24,11 +24,8 @@ class ResetSenha : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val SDK_cINT = Build.VERSION.SDK_INT
-        if (SDK_cINT > 8) {
-            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-            StrictMode.setThreadPolicy(policy)
-        }
+        Util.verificaPermissaoInternet()
+
         binding = ActivityResetSenhaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -54,43 +51,42 @@ class ResetSenha : AppCompatActivity() {
 
             resetEmail.put("email", binding.etEmailReset.text)
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val rests: Deferred<Pair<String, String>> = async {
-                    Mlogin().enviarEmail(json = resetEmail)
-                }
+            requisicaoEnviarEmail(resetEmail)
+        }
+    }
 
-                ProgressBarUtils.show(context)
-                val respostaEmail = rests.await()
+    fun requisicaoEnviarEmail(resetEmail: JSONObject) {
+        ProgressBarUtils.show(context)
+        CoroutineScope(Dispatchers.IO).launch {
+            val rests: Deferred<Pair<String, String>> = async {
+                Mlogin().enviarEmail(json = resetEmail)
+            }
 
-                withContext(Dispatchers.Main) {
+            val respostaEmail = rests.await()
+
+            withContext(Dispatchers.Main) {
+                ProgressBarUtils.close(context)
+                if (respostaEmail.first != "erro") {
                     if (respostaEmail.first == "200") {
-                        Toast.makeText(
-                            applicationContext,
-                            "Email Enviado!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        ProgressBarUtils.close(context)
+                        Util.menssagemToast(context, context.getString(R.string.envio_token))
                     } else {
-                        var erroEnvioEmail = respostaEmail.second
+                        var respostaErro = respostaEmail.second
 
-                        var jsonErroEmail = JSONObject(erroEnvioEmail)
+                        var jsonErro = JSONObject(respostaErro)
 
-                        if (jsonErroEmail.has("message")) {
-                            Toast.makeText(
-                                applicationContext,
-                                jsonErroEmail.getString("message").replace("[", "").replace("]", "")
-                                    .replace("\"f", ""),
-                                Toast.LENGTH_LONG
-                            ).show()
-                            ProgressBarUtils.close(context)
+                        if (jsonErro.has("message")) {
+                            var erro = Util.removeCaracteresErro(jsonErro.getString("message"))
+                            Util.menssagemToast(context, erro)
+                        } else {
+                            Util.menssagemToast(context, context.getString(R.string.erro_geral))
                         }
                     }
+                } else {
+                    Util.menssagemToast(context, context.getString(R.string.erro_requisicao))
                 }
             }
         }
     }
-
-
 
 
 

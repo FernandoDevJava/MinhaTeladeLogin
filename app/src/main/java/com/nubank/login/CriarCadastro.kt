@@ -85,6 +85,7 @@ class CriarCadastro : AppCompatActivity() {
     }
 
     fun requisicaoCadastro(create: JSONObject) {
+        ProgressBarUtils.show(context)
         CoroutineScope(Dispatchers.IO).launch {
             val rest: Deferred<Pair<String, String>> = async {
                 Mlogin().createUser(json = create)
@@ -93,6 +94,7 @@ class CriarCadastro : AppCompatActivity() {
             val responses = rest.await()
 
             withContext(Dispatchers.Main) {
+                ProgressBarUtils.close(context)
                 if (responses.first != "erro") {
                     if (responses.first == "201") {
                         Util.menssagemToast(context, context.getString(R.string.usuario_criado))

@@ -24,11 +24,7 @@ class EmailToken : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val SDK_zINT = Build.VERSION.SDK_INT
-        if (SDK_zINT > 8) {
-            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-            StrictMode.setThreadPolicy(policy)
-        }
+        Util.verificaPermissaoInternet()
         binding = ActivityEmailTokenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -71,37 +67,39 @@ class EmailToken : AppCompatActivity() {
             resetar.put("token", binding.etToken.text)
             resetar.put("senha", binding.etNovaSenha.text)
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val resta: Deferred<Pair<String, String>> = async {
-                    Mlogin().resetarSenha(json = resetar)
-                }
+            requisicaoResetar(resetar)
+        }
+    }
 
-                ProgressBarUtils.show(context)
-                val respostaResetSenha = resta.await()
 
-                withContext(Dispatchers.Main) {
+    fun requisicaoResetar(resetar: JSONObject) {
+        ProgressBarUtils.show(context)
+        CoroutineScope(Dispatchers.IO).launch {
+            val resta: Deferred<Pair<String, String>> = async {
+                Mlogin().resetarSenha(json = resetar)
+            }
+
+            val respostaResetSenha = resta.await()
+
+            withContext(Dispatchers.Main) {
+                ProgressBarUtils.close(context)
+                if (respostaResetSenha.first != "erro") {
                     if (respostaResetSenha.first == "201") {
-                        Toast.makeText(
-                            applicationContext,
-                            "Senha Resetada com Sucesso!!",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        ProgressBarUtils.close(context)
+                        Util.menssagemToast(context, context.getString(R.string.reset_senha))
                     } else {
-                        var erroSenha = respostaResetSenha.second
+                        var respostaErro = respostaResetSenha.second
 
-                        var jsonErroSenha = JSONObject(erroSenha)
+                        var jsonErro = JSONObject(respostaErro)
 
-                        if (jsonErroSenha.has("message")) {
-                            Toast.makeText(
-                                applicationContext,
-                                jsonErroSenha.getString("message").replace("[", "").replace("]", "")
-                                    .replace("\"f", ""),
-                                Toast.LENGTH_LONG
-                            ).show()
-                            ProgressBarUtils.close(context)
+                        if (jsonErro.has("message")) {
+                            var erro = Util.removeCaracteresErro(jsonErro.getString("message"))
+                            Util.menssagemToast(context, erro)
+                        } else {
+                            Util.menssagemToast(context, context.getString(R.string.erro_geral))
                         }
                     }
+                } else {
+                    Util.menssagemToast(context, context.getString(R.string.erro_requisicao))
                 }
             }
         }
