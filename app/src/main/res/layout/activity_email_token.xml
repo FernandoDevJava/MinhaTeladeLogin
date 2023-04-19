@@ -8,6 +8,26 @@
     tools:context=".EmailToken">
 
     <ImageView
+        android:id="@+id/idButtonBack"
+        android:layout_width="52dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back_page" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonBackToken"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/idButtonBack"
+        app:layout_constraintStart_toEndOf="@+id/idButtonBack"
+        app:layout_constraintTop_toTopOf="@+id/idButtonBack" />
+
+    <ImageView
         android:id="@+id/imageView"
         android:layout_width="190dp"
         android:layout_height="154dp"

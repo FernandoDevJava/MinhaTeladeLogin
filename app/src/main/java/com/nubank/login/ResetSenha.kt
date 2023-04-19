@@ -32,8 +32,12 @@ class ResetSenha : AppCompatActivity() {
         binding.idButtonEnviarToken.setOnClickListener { resetEmail() }
 
         binding.idTextPageToken.setOnClickListener {
-            var intentteste = Intent(applicationContext, EmailToken::class.java)
-            startActivity(intentteste)
+            var intentTenhoToken = Intent(applicationContext, EmailToken::class.java)
+            startActivity(intentTenhoToken)
+        }
+        binding.idButtonBack.setOnClickListener {
+            var intentBackLogins = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intentBackLogins)
         }
     }
 

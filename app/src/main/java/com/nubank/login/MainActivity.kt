@@ -2,14 +2,12 @@ package com.nubank.login
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
-import android.os.StrictMode.ThreadPolicy
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.nubank.login.databinding.ActivityMainBinding
@@ -47,7 +45,6 @@ class MainActivity : AppCompatActivity() {
             var intentResetSenha = Intent(applicationContext, ResetSenha::class.java)
             startActivity(intentResetSenha)
         }
-
     }
 
     fun login() {
@@ -110,7 +107,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
+
+
 
     private fun textListener(input: EditText, view: TextInputLayout): TextWatcher {
         return object : TextWatcher {

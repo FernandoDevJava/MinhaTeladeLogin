@@ -2,6 +2,7 @@ package com.nubank.login
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
@@ -12,6 +13,7 @@ import android.widget.EditText
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputLayout
 import com.nubank.login.databinding.ActivityCriarCadastroBinding
 import com.nubank.login.model.Mlogin
@@ -37,6 +39,10 @@ class CriarCadastro : AppCompatActivity() {
         binding.ettextJaTenhoConta.setOnClickListener {
             var intentMainActivity = Intent(applicationContext, MainActivity::class.java)
             startActivity(intentMainActivity)
+        }
+        binding.idButtonBack.setOnClickListener {
+            var intentBackLogin = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intentBackLogin)
         }
     }
 
