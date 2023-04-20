@@ -35,10 +35,6 @@ class ResetSenha : AppCompatActivity() {
             var intentTenhoToken = Intent(applicationContext, EmailToken::class.java)
             startActivity(intentTenhoToken)
         }
-        binding.idButtonBack.setOnClickListener {
-            var intentBackLogins = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intentBackLogins)
-        }
     }
 
     fun resetEmail() {

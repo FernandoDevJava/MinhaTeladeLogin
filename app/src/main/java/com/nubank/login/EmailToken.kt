@@ -30,10 +30,6 @@ class EmailToken : AppCompatActivity() {
 
         binding.idButtonResetar.setOnClickListener { resetar() }
 
-        binding.idButtonBack.setOnClickListener {
-            var intentBackReset = Intent(applicationContext, ResetSenha::class.java)
-            startActivity(intentBackReset)
-        }
     }
 
     fun resetar() {

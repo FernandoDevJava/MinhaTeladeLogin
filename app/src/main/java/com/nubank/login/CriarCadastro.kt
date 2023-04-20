@@ -40,10 +40,6 @@ class CriarCadastro : AppCompatActivity() {
             var intentMainActivity = Intent(applicationContext, MainActivity::class.java)
             startActivity(intentMainActivity)
         }
-        binding.idButtonBack.setOnClickListener {
-            var intentBackLogin = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intentBackLogin)
-        }
     }
 
 
