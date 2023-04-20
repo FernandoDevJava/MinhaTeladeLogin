@@ -35,10 +35,13 @@ class CriarCadastro : AppCompatActivity() {
 
         binding.etbtnCriar.setOnClickListener { create() }
 
-
         binding.ettextJaTenhoConta.setOnClickListener {
             var intentMainActivity = Intent(applicationContext, MainActivity::class.java)
             startActivity(intentMainActivity)
+        }
+        binding.idButtonBack.setOnClickListener {
+            var backLogin = Intent(applicationContext, MainActivity::class.java)
+            startActivity(backLogin)
         }
     }
 

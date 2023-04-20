@@ -16,6 +16,7 @@ import com.nubank.login.model.Mlogin
 import kotlinx.coroutines.*
 import org.json.JSONObject
 
+@Suppress("DEPRECATION")
 class EmailToken : AppCompatActivity() {
 
     private lateinit var binding: ActivityEmailTokenBinding
@@ -30,7 +31,12 @@ class EmailToken : AppCompatActivity() {
 
         binding.idButtonResetar.setOnClickListener { resetar() }
 
+        binding.idButtonBack.setOnClickListener {
+            var backToken = Intent(applicationContext, ResetSenha::class.java)
+            startActivity(backToken)
+        }
     }
+
 
     fun resetar() {
         binding.etEmailToken.addTextChangedListener(
@@ -63,8 +69,8 @@ class EmailToken : AppCompatActivity() {
             resetar.put("token", binding.etToken.text)
             resetar.put("senha", binding.etNovaSenha.text)
 
-            requisicaoResetar(resetar)
         }
+
     }
 
 

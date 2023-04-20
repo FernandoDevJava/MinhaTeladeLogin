@@ -13,6 +13,12 @@
     <string name="buttonBackToken">Chave</string>
     <string name="textDigiteEmail">Prencha o campo abaixo com e-mail para receber a chave de reset de senha em seu e-mail.</string>
 
+    <!--Strings "title" para Toolbar-->
+    <string name="titleCadastro">Cadastro</string>
+    <string name="titleResetToken">Solicitar Chave</string>
+    <string name="titleResetSenha">Nova Senha</string>
+
+    <!--Strings para Toast-->
     <string name="login_sucesso">Login Feito com sucesso!</string>
     <string name="usuario_criado">Usuário criado com sucesso!</string>
     <string name="reset_senha">Nova senha Definida!</string>

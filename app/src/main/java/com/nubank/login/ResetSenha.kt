@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
+import android.provider.ContactsContract.CommonDataKinds.Email
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
@@ -35,7 +36,12 @@ class ResetSenha : AppCompatActivity() {
             var intentTenhoToken = Intent(applicationContext, EmailToken::class.java)
             startActivity(intentTenhoToken)
         }
+        binding.idButtonBack.setOnClickListener {
+            var backResetSenha = Intent(applicationContext, MainActivity::class.java)
+            startActivity(backResetSenha)
+        }
     }
+
 
     fun resetEmail() {
         binding.etEmailReset.addTextChangedListener(
