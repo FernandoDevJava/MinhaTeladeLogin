@@ -78,4 +78,20 @@ class Mlogin {
             return Pair("erro", "erro")
         }
     }
+
+    fun logout(json: JSONObject): Pair<String, String> {
+        Log.d("testeJsonLogout", json.toString())
+        val request = Request.Builder()
+            .url(Util.url() + "auth/logout")
+            .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
+            .build()
+
+        try {
+            client.newCall(request).execute().use { response ->
+                return Pair(response.code.toString(), response.body.string())
+            }
+        } catch (e: IOException) {
+            return Pair("erro", "erro")
+        }
+    }
 }
