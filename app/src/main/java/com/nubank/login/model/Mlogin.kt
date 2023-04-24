@@ -64,7 +64,7 @@ class Mlogin {
     }
 
     fun resetarSenha(json: JSONObject): Pair<String, String> {
-        //Log.d("testeJsonResetSenha", json.toString())
+        Log.d("testeJsonResetSenha", json.toString())
         val request = Request.Builder()
             .url(Util.url() + "auth/recuperarsenhaToken")
             .patch(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))

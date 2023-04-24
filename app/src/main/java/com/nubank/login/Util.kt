@@ -11,7 +11,7 @@ object Util {
     }
 
     fun url(): String{
-        return "http://aws.lsfcloud.com.br:8080/api/"
+        return "http://home.lsfcloud.com.br:8080/api/"
     }
 
     fun menssagemToast(context: Context, mensagem: String){
