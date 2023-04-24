@@ -103,6 +103,8 @@ class CriarCadastro : AppCompatActivity() {
                 if (responses.first != "erro") {
                     if (responses.first == "201") {
                         Util.menssagemToast(context, context.getString(R.string.usuario_criado))
+                        var intentCreateUser = Intent(applicationContext, MainActivity::class.java)
+                        startActivity(intentCreateUser)
                     } else {
                         var respostaErro = responses.second
 

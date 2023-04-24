@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity() {
                 ProgressBarUtils.close(context)
                 if (response.first != "erro") {
                     if (response.first == "200") {
-                        Util.menssagemToast(context, context.getString(R.string.login_sucesso))
                             var exemplo = Intent(applicationContext, Aplicacao::class.java)
                             startActivity(exemplo)
                     } else {
