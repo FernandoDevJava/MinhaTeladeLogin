@@ -2,8 +2,8 @@ package com.nubank.login
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.nubank.login.databinding.ActivityAplicacaoBinding
 import com.nubank.login.model.Mlogin
 import kotlinx.coroutines.CoroutineScope
@@ -26,10 +26,15 @@ class Aplicacao : AppCompatActivity() {
 
         binding.idButtonSair.setOnClickListener { logoutObject() }
 
+
+
     }
 
     fun logoutObject() {
         var logout = JSONObject()
+
+        val sharedPreference =  getSharedPreferences("token",Context.MODE_PRIVATE)
+        sharedPreference.getString("token", logout.toString())
         logout(logout)
     }
 
@@ -42,22 +47,20 @@ class Aplicacao : AppCompatActivity() {
             val responseLogout = restLogout.await()
 
             withContext(Dispatchers.Main) {
-                if (responseLogout.first != "erro") {
-                    if (responseLogout.first == "200") {
-                        Util.menssagemToast(context, context.getString(R.string.logout))
-                        var intentLogout = Intent(applicationContext, MainActivity::class.java)
-                        startActivity(intentLogout)
+                if (responseLogout.first == "200") {
+                    Util.menssagemToast(context, context.getString(R.string.logout))
+                    var intentLogout = Intent(applicationContext, MainActivity::class.java)
+                    startActivity(intentLogout)
+                } else {
+                    var respostaErro = responseLogout.second
+
+                    var jsonErro = JSONObject(respostaErro)
+
+                    if (jsonErro.has("message")) {
+                        var erro = Util.removeCaracteresErro(jsonErro.getString("message"))
+                        Util.menssagemToast(context, erro)
                     } else {
-                        var respostaErro = responseLogout.second
-
-                        var jsonErro = JSONObject(respostaErro)
-
-                        if (jsonErro.has("message")) {
-                            var erro = Util.removeCaracteresErro(jsonErro.getString("message"))
-                            Util.menssagemToast(context, erro)
-                        } else {
-                            Util.menssagemToast(context, context.getString(R.string.erro_geral))
-                        }
+                        Util.menssagemToast(context, context.getString(R.string.erro_geral))
                     }
                 }
             }

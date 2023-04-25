@@ -72,6 +72,11 @@ class MainActivity : AppCompatActivity() {
             login.put("email", binding.etLogin.text)
             login.put("senha", binding.etSenha.text)
 
+            val sharedPreference =  getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
+            var editor = sharedPreference.edit()
+            editor.putString("token",Mlogin.toString())
+            editor.putLong("l",100L)
+
             requisicao(login)
         }
     }

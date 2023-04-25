@@ -80,10 +80,21 @@ class Mlogin {
     }
 
     fun logout(json: JSONObject): Pair<String, String> {
+        /*val client = OkHttpClient()
+        val mediaType = "text/plain".toMediaType()
+        val body = "".toRequestBody(mediaType)
+        val request = Request.Builder()
+            .url(Util.url() + "auth/logout")
+            .post(body)
+            .build()
+        val response = client.newCall(request).execute()*/
+
+
         Log.d("testeJsonLogout", json.toString())
         val request = Request.Builder()
             .url(Util.url() + "auth/logout")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
+            .addHeader("Authorization", "token")
             .build()
 
         try {
