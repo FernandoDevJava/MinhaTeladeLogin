@@ -3,6 +3,7 @@ package com.nubank.login
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.nubank.login.databinding.ActivityAplicacaoBinding
 import com.nubank.login.model.Mlogin
@@ -25,24 +26,26 @@ class Aplicacao : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.idButtonSair.setOnClickListener { logoutObject() }
-
-
-
     }
 
     fun logoutObject() {
         var logout = JSONObject()
 
-        val sharedPreference =  getSharedPreferences("token",Context.MODE_PRIVATE)
-        sharedPreference.getString("token", logout.toString())
         logout(logout)
     }
 
     fun logout(logout: JSONObject) {
+        val sharedPreferences =  getSharedPreferences("teste",MODE_PRIVATE)
+        val token = sharedPreferences.getString("token", null).toString()
         CoroutineScope(Dispatchers.IO).launch {
             val restLogout: Deferred<Pair<String, String>> = async {
                 Mlogin().logout(json = logout)
             }
+
+            val sharedPreferences =  getSharedPreferences("teste",MODE_PRIVATE)
+            val token = sharedPreferences.getString("token", null).toString()
+
+            Log.d("testee", token)
 
             val responseLogout = restLogout.await()
 

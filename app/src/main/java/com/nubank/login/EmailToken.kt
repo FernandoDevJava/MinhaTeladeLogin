@@ -69,8 +69,6 @@ class EmailToken : AppCompatActivity() {
             resetar.put("token", binding.etToken.text)
             resetar.put("senha", binding.etNovaSenha.text)
 
-
-
             requisicaoResetar(resetar)
 
         }

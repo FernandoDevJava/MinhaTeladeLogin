@@ -2,6 +2,7 @@ package com.nubank.login
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -28,9 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         Util.verificaPermissaoInternet()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -72,11 +71,6 @@ class MainActivity : AppCompatActivity() {
             login.put("email", binding.etLogin.text)
             login.put("senha", binding.etSenha.text)
 
-            val sharedPreference =  getSharedPreferences("PREFERENCE_NAME",Context.MODE_PRIVATE)
-            var editor = sharedPreference.edit()
-            editor.putString("token",Mlogin.toString())
-            editor.putLong("l",100L)
-
             requisicao(login)
         }
     }
@@ -88,12 +82,26 @@ class MainActivity : AppCompatActivity() {
                 Mlogin().login(json = login)
             }
 
+
+
             val response = res.await()
 
             withContext(Dispatchers.Main) {
                 ProgressBarUtils.close(context)
                 if (response.first != "erro") {
                     if (response.first == "200") {
+
+                        val sharedPreferences =  getSharedPreferences("teste",MODE_PRIVATE)
+                        var editor = sharedPreferences.edit()
+
+                        editor.apply {
+                            var resposeSharePref = response.second
+
+                            var jsonErroSharedPref = JSONObject(resposeSharePref)
+                            putString("token", "Bearer "+jsonErroSharedPref.getString("token"))
+                            apply()
+                        }
+
                             var exemplo = Intent(applicationContext, Aplicacao::class.java)
                             startActivity(exemplo)
                     } else {

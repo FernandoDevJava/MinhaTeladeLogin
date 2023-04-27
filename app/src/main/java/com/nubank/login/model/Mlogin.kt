@@ -1,6 +1,7 @@
 package com.nubank.login.model
 
 import android.util.Log
+import com.nubank.login.Aplicacao
 import com.nubank.login.Util
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -8,6 +9,7 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
+import android.media.session.MediaSession.Token as Token1
 
 class Mlogin {
     private val client = OkHttpClient()
@@ -93,5 +95,6 @@ class Mlogin {
         } catch (e: IOException) {
             return Pair("erro", "erro")
         }
+        val response = client.newCall(request).execute()
     }
 }
