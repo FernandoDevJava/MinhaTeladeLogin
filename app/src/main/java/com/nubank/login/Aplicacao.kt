@@ -39,13 +39,8 @@ class Aplicacao : AppCompatActivity() {
         val token = sharedPreferences.getString("token", null).toString()
         CoroutineScope(Dispatchers.IO).launch {
             val restLogout: Deferred<Pair<String, String>> = async {
-                Mlogin().logout(json = logout)
+                Mlogin().logout(token)
             }
-
-            val sharedPreferences =  getSharedPreferences("teste",MODE_PRIVATE)
-            val token = sharedPreferences.getString("token", null).toString()
-
-            Log.d("testee", token)
 
             val responseLogout = restLogout.await()
 

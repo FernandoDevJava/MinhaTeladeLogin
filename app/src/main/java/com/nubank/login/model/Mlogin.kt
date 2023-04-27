@@ -9,10 +9,13 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 import android.media.session.MediaSession.Token as Token1
 
 class Mlogin {
-    private val client = OkHttpClient()
+    private val client = OkHttpClient().newBuilder()
+        .readTimeout(3000, TimeUnit.MILLISECONDS)
+        .build()
 
     companion object {
         val MEDIA_TYPE_MARKDOWN = "application/json".toMediaType()
@@ -29,6 +32,7 @@ class Mlogin {
                 return Pair(response.code.toString(), response.body.string())
             }
         } catch (e: IOException) {
+            Log.d("okk", e.message.toString())
             return Pair("erro", "erro")
         }
     }
@@ -81,12 +85,11 @@ class Mlogin {
         }
     }
 
-    fun logout(json: JSONObject): Pair<String, String> {
-        Log.d("testeJsonLogout", json.toString())
+    fun logout(token:String): Pair<String, String> {
         val request = Request.Builder()
             .url(Util.url() + "auth/logout")
-            .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
-            .addHeader("Authorization", "token")
+            .post("".trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
+            .addHeader("Authorization", token)
             .build()
         try {
             client.newCall(request).execute().use { response ->
