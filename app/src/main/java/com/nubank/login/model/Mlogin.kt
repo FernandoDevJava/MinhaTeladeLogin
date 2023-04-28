@@ -1,7 +1,6 @@
 package com.nubank.login.model
 
 import android.util.Log
-import com.nubank.login.Aplicacao
 import com.nubank.login.Util
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -10,11 +9,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-import android.media.session.MediaSession.Token as Token1
 
 class Mlogin {
     private val client = OkHttpClient().newBuilder()
-        .readTimeout(3000, TimeUnit.MILLISECONDS)
+        .readTimeout(5000, TimeUnit.MILLISECONDS)
         .build()
 
     companion object {
@@ -26,7 +24,6 @@ class Mlogin {
             .url(Util.url() + "auth/login")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
             .build()
-
         try {
             client.newCall(request).execute().use { response ->
                 return Pair(response.code.toString(), response.body.string())
@@ -43,7 +40,6 @@ class Mlogin {
             .url(Util.url() + "auth/cadastro")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
             .build()
-
         try {
             client.newCall(request).execute().use { response ->
                 return Pair(response.code.toString(), response.body.string())
@@ -59,7 +55,6 @@ class Mlogin {
             .url(Util.url() + "auth/recuperarsenha")
             .post(json.toString().trimMargin().toRequestBody(MEDIA_TYPE_MARKDOWN))
             .build()
-
         try {
             client.newCall(request).execute().use { response ->
                 return Pair(response.code.toString(), response.body.string())

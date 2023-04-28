@@ -2,25 +2,28 @@ package com.nubank.login
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.StrictMode
-import android.provider.ContactsContract.CommonDataKinds.Email
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.nubank.login.databinding.ActivityResetSenhaBinding
 import com.nubank.login.model.Mlogin
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 class ResetSenha : AppCompatActivity() {
 
     private lateinit var binding: ActivityResetSenhaBinding
     private var context: Context = this
+    private lateinit var timer: CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,15 +36,15 @@ class ResetSenha : AppCompatActivity() {
         binding.idButtonEnviarToken.setOnClickListener { resetEmail() }
 
         binding.idTextPageToken.setOnClickListener {
-            var intentTenhoToken = Intent(applicationContext, EmailToken::class.java)
+            val intentTenhoToken = Intent(applicationContext, EmailToken::class.java)
             startActivity(intentTenhoToken)
         }
         binding.idButtonBack.setOnClickListener {
-            var backResetSenha = Intent(applicationContext, MainActivity::class.java)
+            val backResetSenha = Intent(applicationContext, MainActivity::class.java)
             startActivity(backResetSenha)
         }
-    }
 
+    }
 
     fun resetEmail() {
         binding.etEmailReset.addTextChangedListener(
@@ -53,7 +56,7 @@ class ResetSenha : AppCompatActivity() {
         if (binding.etEmailReset.text.toString().isEmpty()) {
             binding.itEmailReset.error = "Digite seu Email"
         } else {
-            var resetEmail = JSONObject()
+            val resetEmail = JSONObject()
 
             resetEmail.put("email", binding.etEmailReset.text)
 
@@ -75,13 +78,32 @@ class ResetSenha : AppCompatActivity() {
                 if (respostaEmail.first != "erro") {
                     if (respostaEmail.first == "200") {
                         Util.menssagemToast(context, context.getString(R.string.envio_token))
-                    } else {
-                        var respostaErro = respostaEmail.second
+                        object : CountDownTimer(300000, 1000) {
+                            override fun onTick(millisUntilFinished: Long) {
+                                val timeResult =
+                                    "${
+                                        (millisUntilFinished / 1000 / 60).toString()
+                                            .padStart(2, '0')
+                                    }:" +
+                                            "${
+                                                (millisUntilFinished / 1000 % 60).toString()
+                                                    .padStart(2, '0')
+                                            } "
+                                binding.idTextCronometro.text = "$timeResult"
+                            }
 
-                        var jsonErro = JSONObject(respostaErro)
+                            override fun onFinish() {
+                                binding.idTextCronometro.setText("Chave Expirada")
+                                binding.idButtonEnviarToken.text = "Reenviar Token"
+                            }
+                        }.start()
+                    } else {
+                        val respostaErro = respostaEmail.second
+
+                        val jsonErro = JSONObject(respostaErro)
 
                         if (jsonErro.has("message")) {
-                            var erro = Util.removeCaracteresErro(jsonErro.getString("message"))
+                            val erro = Util.removeCaracteresErro(jsonErro.getString("message"))
                             Util.menssagemToast(context, erro)
                         } else {
                             Util.menssagemToast(context, context.getString(R.string.erro_geral))
@@ -93,8 +115,6 @@ class ResetSenha : AppCompatActivity() {
             }
         }
     }
-
-
 
     private fun textListener(input: EditText, view: TextInputLayout): TextWatcher {
         return object : TextWatcher {
