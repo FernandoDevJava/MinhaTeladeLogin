@@ -81,14 +81,8 @@ class ResetSenha : AppCompatActivity() {
                         object : CountDownTimer(300000, 1000) {
                             override fun onTick(millisUntilFinished: Long) {
                                 val timeResult =
-                                    "${
-                                        (millisUntilFinished / 1000 / 60).toString()
-                                            .padStart(2, '0')
-                                    }:" +
-                                            "${
-                                                (millisUntilFinished / 1000 % 60).toString()
-                                                    .padStart(2, '0')
-                                            } "
+                                    "${(millisUntilFinished / 1000 / 60).toString().padStart(2, '0')}:" + "" +
+                                    "${(millisUntilFinished / 1000 % 60).toString().padStart(2, '0')} "
                                 binding.idTextCronometro.text = "$timeResult"
                             }
 
