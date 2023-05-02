@@ -27,4 +27,9 @@
     <string name="erro_geral">Erro, tente novamente!</string>
     <string name="logout">Logout Realizado!</string>
     <string name="erro_requisicao">Erro ao obter requisição, tente novamente!</string>
+
+
+    <!--Strings Timer-->
+    <string name="token_expirado">Chave Expirada</string>
+    <string name="reenviar_token">Reenviar Chave</string>
 </resources>
