@@ -78,13 +78,24 @@ class ResetSenha : AppCompatActivity() {
                 if (respostaEmail.first != "erro") {
                     if (respostaEmail.first == "200") {
                         Util.menssagemToast(context, context.getString(R.string.envio_token))
-                        timer = object : CountDownTimer(120000, 1000) {
+
+                        var objTempo = JSONObject(respostaEmail.second)
+                        var tempo = objTempo.getString("expires_in")
+
+                        timer = object : CountDownTimer((tempo.toInt() * 1000).toLong(), 1000) {
                             override fun onTick(millisUntilFinished: Long) {
                                 val timeResult =
-                                    "${(millisUntilFinished / 1000 / 60).toString().padStart(2, '0')}:" + "" +
-                                    "${(millisUntilFinished / 1000 % 60).toString().padStart(2, '0')} "
+                                    "${
+                                        (millisUntilFinished / 1000 / 60).toString()
+                                            .padStart(2, '0')
+                                    }:" + "" +
+                                            "${
+                                                (millisUntilFinished / 1000 % 60).toString()
+                                                    .padStart(2, '0')
+                                            } "
                                 binding.idTextCronometro.text = "$timeResult"
                             }
+
                             override fun onFinish() {
                                 binding.idTextCronometro.setText(R.string.token_expirado)
                                 binding.idButtonEnviarToken.setText(R.string.reenviar_token)
