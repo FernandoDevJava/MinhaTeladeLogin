@@ -82,7 +82,7 @@ class ResetSenha : AppCompatActivity() {
                         var objTempo = JSONObject(respostaEmail.second)
                         var tempo = objTempo.getString("expires_in")
 
-                        timer = object : CountDownTimer((tempo.toInt() * 1000).toLong(), 1000) {
+                        timer = object : CountDownTimer(tempo.toLong() * 1000, 1000) {
                             override fun onTick(millisUntilFinished: Long) {
                                 val timeResult =
                                     "${
