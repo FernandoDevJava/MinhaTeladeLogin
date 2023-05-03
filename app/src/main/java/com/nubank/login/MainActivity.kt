@@ -82,8 +82,6 @@ class MainActivity : AppCompatActivity() {
                 Mlogin().login(json = login)
             }
 
-
-
             val response = res.await()
 
             withContext(Dispatchers.Main) {

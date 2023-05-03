@@ -67,6 +67,11 @@ class CriarCadastro : AppCompatActivity() {
                 binding.etSenhaCriar, binding.itSenhaCriar
             )
         )
+        binding.etSenhaVerificar.addTextChangedListener(
+            textListener(
+                binding.etSenhaVerificar, binding.itSenhaVerificar
+            )
+        )
 
         //Limpa o erro quando o usuário começa a digitar
         if (binding.itNome.text.toString().isEmpty()) {
@@ -77,13 +82,18 @@ class CriarCadastro : AppCompatActivity() {
             binding.itEmailCriar.error = "Digite seu E-mail"
         } else if (binding.etSenhaCriar.text.toString().isEmpty()) {
             binding.itSenhaCriar.error = "Digite sua Senha"
-        } else {
+        } else if (binding.etSenhaVerificar.text.toString().isEmpty()) {
+            binding.itSenhaVerificar.error = "Confirme sua Senha"
+        } /*else if*/
+
+        else {
             var create = JSONObject()
 
             create.put("nome", binding.itNome.text)
             create.put("sobrenome", binding.itSobrenome.text)
             create.put("email", binding.etEmailCriar.text)
             create.put("senha", binding.etSenhaCriar.text)
+            create.put("senha", binding.etSenhaVerificar.text)
 
             requisicaoCadastro(create)
         }

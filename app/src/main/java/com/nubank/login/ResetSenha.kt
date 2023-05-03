@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import com.google.android.material.textfield.TextInputLayout
 import com.nubank.login.databinding.ActivityResetSenhaBinding
 import com.nubank.login.model.Mlogin
@@ -36,14 +37,14 @@ class ResetSenha : AppCompatActivity() {
         binding.idButtonEnviarToken.setOnClickListener { resetEmail() }
 
         binding.idTextPageToken.setOnClickListener {
-            val intentTenhoToken = Intent(applicationContext, EmailToken::class.java)
+            val intentTenhoToken = Intent(this, EmailToken::class.java)
+            intentTenhoToken.putExtra("email", "")
             startActivity(intentTenhoToken)
         }
         binding.idButtonBack.setOnClickListener {
             val backResetSenha = Intent(applicationContext, MainActivity::class.java)
             startActivity(backResetSenha)
         }
-
     }
 
     fun resetEmail() {
@@ -64,6 +65,10 @@ class ResetSenha : AppCompatActivity() {
         }
     }
 
+    /*fun teste() {
+        var teste = resetEmail.put("email", binding.etEmailReset.text)
+    }*/
+
     fun requisicaoEnviarEmail(resetEmail: JSONObject) {
         ProgressBarUtils.show(context)
         CoroutineScope(Dispatchers.IO).launch {
@@ -78,24 +83,16 @@ class ResetSenha : AppCompatActivity() {
                 if (respostaEmail.first != "erro") {
                     if (respostaEmail.first == "200") {
                         Util.menssagemToast(context, context.getString(R.string.envio_token))
-
                         var objTempo = JSONObject(respostaEmail.second)
                         var tempo = objTempo.getString("expires_in")
 
                         timer = object : CountDownTimer(tempo.toLong() * 1000, 1000) {
                             override fun onTick(millisUntilFinished: Long) {
                                 val timeResult =
-                                    "${
-                                        (millisUntilFinished / 1000 / 60).toString()
-                                            .padStart(2, '0')
-                                    }:" + "" +
-                                            "${
-                                                (millisUntilFinished / 1000 % 60).toString()
-                                                    .padStart(2, '0')
-                                            } "
+                                    "${(millisUntilFinished / 1000 / 60).toString().padStart(2, '0')}:" + "" +
+                                    "${(millisUntilFinished / 1000 % 60).toString().padStart(2, '0')} "
                                 binding.idTextCronometro.text = "$timeResult"
                             }
-
                             override fun onFinish() {
                                 binding.idTextCronometro.setText(R.string.token_expirado)
                                 binding.idButtonEnviarToken.setText(R.string.reenviar_token)

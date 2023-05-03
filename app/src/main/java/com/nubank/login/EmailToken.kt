@@ -35,6 +35,10 @@ class EmailToken : AppCompatActivity() {
             var backToken = Intent(applicationContext, ResetSenha::class.java)
             startActivity(backToken)
         }
+        val dados = intent.extras
+        val email = dados?.getString("email")
+
+        binding.etEmailToken.setText(email)
     }
 
 
@@ -74,7 +78,6 @@ class EmailToken : AppCompatActivity() {
         }
 
     }
-
 
     fun requisicaoResetar(resetar: JSONObject) {
         ProgressBarUtils.show(context)
