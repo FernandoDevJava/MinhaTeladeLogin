@@ -36,9 +36,10 @@ class EmailToken : AppCompatActivity() {
             startActivity(backToken)
         }
         val dados = intent.extras
-        val email = dados?.getString("email")
+        val email = dados?.getString("application/json")
 
-        binding.etEmailToken.setText(email)
+        val teste = binding.etEmailToken.setText(email)
+        teste
     }
 
 

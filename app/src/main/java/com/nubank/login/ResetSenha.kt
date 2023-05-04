@@ -37,8 +37,8 @@ class ResetSenha : AppCompatActivity() {
         binding.idButtonEnviarToken.setOnClickListener { resetEmail() }
 
         binding.idTextPageToken.setOnClickListener {
-            val intentTenhoToken = Intent(this, EmailToken::class.java)
-            intentTenhoToken.putExtra("email", "")
+            var intentTenhoToken = Intent(applicationContext, EmailToken::class.java)
+            intentTenhoToken.putExtra("email", "application/json").toString()
             startActivity(intentTenhoToken)
         }
         binding.idButtonBack.setOnClickListener {
