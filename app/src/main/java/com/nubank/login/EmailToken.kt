@@ -58,6 +58,11 @@ class EmailToken : AppCompatActivity() {
                 binding.etNovaSenha, binding.tiNovaSenha
             )
         )
+        binding.etNovaSenhaConfirmar.addTextChangedListener(
+            textListener(
+                binding.etNovaSenhaConfirmar, binding.tiNovaSenhaConfirmar
+            )
+        )
 
         //Limpa o erro quando o usuário começa a digitar
         if (binding.etEmailToken.text.toString().isEmpty()) {
@@ -66,6 +71,10 @@ class EmailToken : AppCompatActivity() {
             binding.itToken.error = "Digite o Token"
         } else if (binding.etNovaSenha.text.toString().isEmpty()) {
             binding.tiNovaSenha.error = "Digite a Nova Senha"
+        } else if (binding.etNovaSenhaConfirmar.text.toString().isEmpty()) {
+            binding.tiNovaSenhaConfirmar.error = "Confirme sua Senha"
+        } else if (binding.etNovaSenhaConfirmar.text.toString() != binding.etNovaSenha.text.toString()) {
+            binding.tiNovaSenhaConfirmar.error = "Senhas Diferentes"
         } else {
             var resetar = JSONObject()
 

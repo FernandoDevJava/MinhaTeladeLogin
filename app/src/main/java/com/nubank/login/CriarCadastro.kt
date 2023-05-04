@@ -84,9 +84,9 @@ class CriarCadastro : AppCompatActivity() {
             binding.itSenhaCriar.error = "Digite sua Senha"
         } else if (binding.etSenhaVerificar.text.toString().isEmpty()) {
             binding.itSenhaVerificar.error = "Confirme sua Senha"
-        } /*else if*/
-
-        else {
+        } else if (binding.etSenhaVerificar.text.toString() != binding.etSenhaCriar.text.toString()) {
+            binding.itSenhaVerificar.error = "Senhas Diferentes"
+        } else {
             var create = JSONObject()
 
             create.put("nome", binding.itNome.text)

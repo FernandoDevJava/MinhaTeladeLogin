@@ -70,7 +70,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="230dp"
         android:layout_marginEnd="32dp"
         android:textColorHint="@color/black_light"
         app:boxStrokeColor="@color/black"
@@ -99,7 +99,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="32dp"
         android:textColorHint="@color/black_light"
         app:boxStrokeColor="@color/black"
@@ -127,7 +127,7 @@
         android:id="@+id/tiNovaSenha"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:textColorHint="@color/black_light"
         app:boxStrokeColor="@color/black"
         app:endIconCheckable="true"
@@ -152,11 +152,40 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiNovaSenhaConfirmar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:textColorHint="@color/black_light"
+        app:boxStrokeColor="@color/black"
+        app:endIconCheckable="true"
+        app:endIconScaleType="center"
+        app:endIconTint="@color/black"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tiNovaSenha"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/black_light">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNovaSenhaConfirmar"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/container_input_border"
+            android:hint="Confirmar Senha"
+            android:inputType="textPassword"
+            android:textColor="@color/black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/idButtonResetar"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="150dp"
         android:background="@drawable/container_button_login"
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
