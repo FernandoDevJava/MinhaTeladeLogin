@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.idTextResetarSenha.setOnClickListener {
-            var intentResetSenha = Intent(applicationContext, ResetSenha::class.java)
+            var intentResetSenha = Intent(applicationContext, EmailToken::class.java)
             startActivity(intentResetSenha)
         }
     }

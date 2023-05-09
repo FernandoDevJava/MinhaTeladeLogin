@@ -2,114 +2,108 @@ package com.nubank.login
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.StrictMode
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
-import com.nubank.login.databinding.ActivityEmailTokenBinding
+import com.nubank.login.databinding.ActivityResetSenhaBinding
 import com.nubank.login.model.Mlogin
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
-@Suppress("DEPRECATION")
 class EmailToken : AppCompatActivity() {
 
-    private lateinit var binding: ActivityEmailTokenBinding
+    private lateinit var binding: ActivityResetSenhaBinding
     private var context: Context = this
+    private lateinit var timer: CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Util.verificaPermissaoInternet()
-        binding = ActivityEmailTokenBinding.inflate(layoutInflater)
+
+        binding = ActivityResetSenhaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.idButtonResetar.setOnClickListener { resetar() }
+        binding.idButtonEnviarToken.setOnClickListener { resetEmail() }
 
+        binding.idTextPageToken.setOnClickListener {
+            var intentTenhoToken = Intent(applicationContext, ResetSenha::class.java)
+            intentTenhoToken.putExtra("email", "application/json").toString()
+            startActivity(intentTenhoToken)
+        }
         binding.idButtonBack.setOnClickListener {
-            var backToken = Intent(applicationContext, ResetSenha::class.java)
-            startActivity(backToken)
+            val backResetSenha = Intent(applicationContext, MainActivity::class.java)
+            startActivity(backResetSenha)
         }
-        val dados = intent.extras
-        val email = dados?.getString("application/json")
-
-        val teste = binding.etEmailToken.setText(email)
-        teste
     }
 
-
-    fun resetar() {
-        binding.etEmailToken.addTextChangedListener(
+    fun resetEmail() {
+        binding.etEmailReset.addTextChangedListener(
             textListener(
-                binding.etEmailToken, binding.itEmailToken
+                binding.etEmailReset, binding.itEmailReset
             )
         )
-        binding.etToken.addTextChangedListener(
-            textListener(
-                binding.etToken, binding.itToken
-            )
-        )
-        binding.etNovaSenha.addTextChangedListener(
-            textListener(
-                binding.etNovaSenha, binding.tiNovaSenha
-            )
-        )
-        binding.etNovaSenhaConfirmar.addTextChangedListener(
-            textListener(
-                binding.etNovaSenhaConfirmar, binding.tiNovaSenhaConfirmar
-            )
-        )
-
         //Limpa o erro quando o usuário começa a digitar
-        if (binding.etEmailToken.text.toString().isEmpty()) {
-            binding.itEmailToken.error = "Digite o Email"
-        } else if (binding.etToken.text.toString().isEmpty()) {
-            binding.itToken.error = "Digite o Token"
-        } else if (binding.etNovaSenha.text.toString().isEmpty()) {
-            binding.tiNovaSenha.error = "Digite a Nova Senha"
-        } else if (binding.etNovaSenhaConfirmar.text.toString().isEmpty()) {
-            binding.tiNovaSenhaConfirmar.error = "Confirme sua Senha"
-        } else if (binding.etNovaSenhaConfirmar.text.toString() != binding.etNovaSenha.text.toString()) {
-            binding.tiNovaSenhaConfirmar.error = "Senhas Diferentes"
+        if (binding.etEmailReset.text.toString().isEmpty()) {
+            binding.itEmailReset.error = "Digite seu Email"
         } else {
-            var resetar = JSONObject()
+            val resetEmail = JSONObject()
 
-            resetar.put("email", binding.etEmailToken.text)
-            resetar.put("token", binding.etToken.text)
-            resetar.put("senha", binding.etNovaSenha.text)
+            resetEmail.put("email", binding.etEmailReset.text)
 
-            requisicaoResetar(resetar)
-
+            requisicaoEnviarEmail(resetEmail)
         }
-
     }
 
-    fun requisicaoResetar(resetar: JSONObject) {
+    /*fun teste() {
+        var teste = resetEmail.put("email", binding.etEmailReset.text)
+    }*/
+
+    fun requisicaoEnviarEmail(resetEmail: JSONObject) {
         ProgressBarUtils.show(context)
         CoroutineScope(Dispatchers.IO).launch {
-            val resta: Deferred<Pair<String, String>> = async {
-                Mlogin().resetarSenha(json = resetar)
+            val rests: Deferred<Pair<String, String>> = async {
+                Mlogin().enviarEmail(json = resetEmail)
             }
 
-            val respostaResetSenha = resta.await()
+            val respostaEmail = rests.await()
 
             withContext(Dispatchers.Main) {
                 ProgressBarUtils.close(context)
-                if (respostaResetSenha.first != "erro") {
-                    if (respostaResetSenha.first == "201") {
-                        Util.menssagemToast(context, context.getString(R.string.reset_senha))
-                    } else {
-                        var respostaErro = respostaResetSenha.second
+                if (respostaEmail.first != "erro") {
+                    if (respostaEmail.first == "200") {
+                        Util.menssagemToast(context, context.getString(R.string.envio_token))
+                        var objTempo = JSONObject(respostaEmail.second)
+                        var tempo = objTempo.getString("expires_in")
 
-                        var jsonErro = JSONObject(respostaErro)
+                        timer = object : CountDownTimer(tempo.toLong() * 1000, 1000) {
+                            override fun onTick(millisUntilFinished: Long) {
+                                val timeResult =
+                                    "${(millisUntilFinished / 1000 / 60).toString().padStart(2, '0')}:" + "" +
+                                    "${(millisUntilFinished / 1000 % 60).toString().padStart(2, '0')} "
+                                binding.idTextCronometro.text = "$timeResult"
+                            }
+                            override fun onFinish() {
+                                binding.idTextCronometro.setText(R.string.token_expirado)
+                                binding.idButtonEnviarToken.setText(R.string.reenviar_token)
+                            }
+                        }.start()
+                    } else {
+                        val respostaErro = respostaEmail.second
+
+                        val jsonErro = JSONObject(respostaErro)
 
                         if (jsonErro.has("message")) {
-                            var erro = Util.removeCaracteresErro(jsonErro.getString("message"))
+                            val erro = Util.removeCaracteresErro(jsonErro.getString("message"))
                             Util.menssagemToast(context, erro)
                         } else {
                             Util.menssagemToast(context, context.getString(R.string.erro_geral))
@@ -121,7 +115,6 @@ class EmailToken : AppCompatActivity() {
             }
         }
     }
-
 
     private fun textListener(input: EditText, view: TextInputLayout): TextWatcher {
         return object : TextWatcher {
