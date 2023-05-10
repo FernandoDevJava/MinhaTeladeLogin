@@ -20,18 +20,18 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:elevation="0dp"
-            android:layout_height="wrap_content">
+            android:elevation="0dp">
 
             <Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:layout_marginStart="40dp"
                 android:background="@color/white"
                 android:elevation="0dp"
                 android:title="@string/titleCadastro"
-                android:layout_marginStart="40dp"
                 android:titleTextColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,141 +64,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:srcCompat="@drawable/img" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itEmailCriar"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="32dp"
-        android:textColorHint="@color/black_light"
-        app:boxStrokeColor="@color/black"
-        app:hintTextColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNome"
-        app:passwordToggleEnabled="false">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmailCriar"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/container_input_border"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/black"
-            android:textColorHint="@color/black"
-            android:textColorLink="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/ettextJaTenhoConta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:text="@string/ButtonBackLogin"
-        android:textColor="@color/black_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etbtnCriar" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/etbtnCriar"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginBottom="150dp"
-        android:background="@drawable/container_button_login"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
-        android:text="@string/btnCriarConta"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Desenvolvido por Fernando Machado"
-        android:textColor="@color/black_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itSenhaVerificar"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="32dp"
-        android:textColorHint="@color/black_light"
-        app:boxStrokeColor="@color/black"
-        app:endIconTint="@color/black_light"
-        app:hintTextColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itSenhaCriar"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/black_light">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSenhaVerificar"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/container_input_border"
-            android:hint="Confirmar Senha"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/black"
-            android:textColorHint="@color/black"
-            android:textColorLink="@color/black"
-            app:endIconTint="@color/black_light" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itSenhaCriar"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="32dp"
-        android:textColorHint="@color/black_light"
-        app:boxStrokeColor="@color/black"
-        app:endIconTint="@color/black_light"
-        app:hintTextColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itEmailCriar"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/black_light">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSenhaCriar"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/container_input_border"
-            android:hint="Senha"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/black"
-            android:textColorHint="@color/black"
-            android:textColorLink="@color/black"
-            app:endIconTint="@color/black_light" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etNome"
@@ -245,6 +110,131 @@
             android:textColorHint="@color/black"
             android:textColorLink="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itEmailCriar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="32dp"
+        android:textColorHint="@color/black_light"
+        app:boxStrokeColor="@color/black"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNome"
+        app:passwordToggleEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmailCriar"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/container_input_border"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itSenhaCriar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="32dp"
+        android:textColorHint="@color/black_light"
+        app:boxStrokeColor="@color/black"
+        app:endIconTint="@color/black_light"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itEmailCriar"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/black_light">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSenhaCriar"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/container_input_border"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black"
+            app:endIconTint="@color/black_light" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/itSenhaVerificar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="32dp"
+        android:textColorHint="@color/black_light"
+        app:boxStrokeColor="@color/black"
+        app:endIconTint="@color/black_light"
+        app:hintTextColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itSenhaCriar"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/black_light">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSenhaVerificar"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/container_input_border"
+            android:hint="Confirmar Senha"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorHint="@color/black"
+            android:textColorLink="@color/black"
+            app:endIconTint="@color/black_light" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/etbtnCriar"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/container_button_login"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:text="@string/btnCriarConta"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/ettextJaTenhoConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:text="@string/ButtonBackLogin"
+        android:textColor="@color/black_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etbtnCriar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

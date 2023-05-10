@@ -19,18 +19,18 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:elevation="0dp"
-            android:layout_height="wrap_content">
+            android:elevation="0dp">
 
             <Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:layout_marginStart="40dp"
                 android:background="@color/white"
                 android:elevation="0dp"
                 android:title="@string/titleResetSenha"
-                android:layout_marginStart="40dp"
                 android:titleTextColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
