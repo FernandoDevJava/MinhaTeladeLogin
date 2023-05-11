@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
+import com.nubank.login.databinding.ActivityEmailTokenBinding
 import com.nubank.login.databinding.ActivityResetSenhaBinding
 import com.nubank.login.model.Mlogin
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +22,7 @@ import org.json.JSONObject
 
 class EmailToken : AppCompatActivity() {
 
-    private lateinit var binding: ActivityResetSenhaBinding
+    private lateinit var binding: ActivityEmailTokenBinding
     private var context: Context = this
     private lateinit var timer: CountDownTimer
 
@@ -30,7 +31,7 @@ class EmailToken : AppCompatActivity() {
 
         Util.verificaPermissaoInternet()
 
-        binding = ActivityResetSenhaBinding.inflate(layoutInflater)
+        binding = ActivityEmailTokenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.idButtonEnviarToken.setOnClickListener { resetEmail() }

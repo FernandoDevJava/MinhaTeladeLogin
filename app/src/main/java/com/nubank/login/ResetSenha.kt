@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout
 import com.nubank.login.databinding.ActivityEmailTokenBinding
+import com.nubank.login.databinding.ActivityResetSenhaBinding
 import com.nubank.login.model.Mlogin
 import kotlinx.coroutines.*
 import org.json.JSONObject
@@ -16,14 +17,14 @@ import org.json.JSONObject
 @Suppress("DEPRECATION")
 class ResetSenha : AppCompatActivity() {
 
-    private lateinit var binding: ActivityEmailTokenBinding
+    private lateinit var binding: ActivityResetSenhaBinding
     private var context: Context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         Util.verificaPermissaoInternet()
-        binding = ActivityEmailTokenBinding.inflate(layoutInflater)
+        binding = ActivityResetSenhaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.idButtonResetar.setOnClickListener { resetar() }
