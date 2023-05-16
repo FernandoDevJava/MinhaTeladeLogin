@@ -33,11 +33,7 @@ class ResetSenha : AppCompatActivity() {
             var backToken = Intent(applicationContext, EmailToken::class.java)
             startActivity(backToken)
         }
-        val dados = intent.extras
-        val email = dados?.getString("application/json")
 
-        val teste = binding.etEmailToken.setText(email)
-        teste
     }
 
 

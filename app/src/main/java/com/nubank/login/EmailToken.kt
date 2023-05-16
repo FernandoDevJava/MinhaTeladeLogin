@@ -38,7 +38,7 @@ class EmailToken : AppCompatActivity() {
 
         binding.idTextPageToken.setOnClickListener {
             var intentTenhoToken = Intent(applicationContext, ResetSenha::class.java)
-            intentTenhoToken.putExtra("email", "application/json").toString()
+            intentTenhoToken.putExtra("Content-Type", "email").toString()
             startActivity(intentTenhoToken)
         }
         binding.idButtonBack.setOnClickListener {
@@ -64,10 +64,6 @@ class EmailToken : AppCompatActivity() {
             requisicaoEnviarEmail(resetEmail)
         }
     }
-
-    /*fun teste() {
-        var teste = resetEmail.put("email", binding.etEmailReset.text)
-    }*/
 
     fun requisicaoEnviarEmail(resetEmail: JSONObject) {
         ProgressBarUtils.show(context)

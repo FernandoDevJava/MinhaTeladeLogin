@@ -100,8 +100,8 @@ class MainActivity : AppCompatActivity() {
                             apply()
                         }
 
-                            var exemplo = Intent(applicationContext, Aplicacao::class.java)
-                            startActivity(exemplo)
+                            var intentEnterApp = Intent(applicationContext, Aplicacao::class.java)
+                            startActivity(intentEnterApp)
                     } else {
                         var respostaErro = response.second
 

@@ -2,18 +2,11 @@ package com.nubank.login
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
-import android.os.StrictMode.ThreadPolicy
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.google.android.material.textfield.TextInputLayout
 import com.nubank.login.databinding.ActivityCriarCadastroBinding
 import com.nubank.login.model.Mlogin
@@ -43,6 +36,9 @@ class CriarCadastro : AppCompatActivity() {
             var backLogin = Intent(applicationContext, MainActivity::class.java)
             startActivity(backLogin)
         }
+        binding.etTelefone.addTextChangedListener(
+            Util.insert( "(##) #####-####", binding.etTelefone)
+        )
     }
 
 
@@ -73,6 +69,13 @@ class CriarCadastro : AppCompatActivity() {
             )
         )
 
+        binding.etTelefone.addTextChangedListener(
+            textListener(
+                binding.etTelefone, binding.itTelefone
+            )
+        )
+
+
         //Limpa o erro quando o usuário começa a digitar
         if (binding.itNome.text.toString().isEmpty()) {
             binding.etNome.error = "Digite seu Nome"
@@ -86,6 +89,8 @@ class CriarCadastro : AppCompatActivity() {
             binding.itSenhaVerificar.error = "Confirme sua Senha"
         } else if (binding.etSenhaVerificar.text.toString() != binding.etSenhaCriar.text.toString()) {
             binding.itSenhaVerificar.error = "Senhas Diferentes"
+        } else if (binding.etTelefone.text.toString().isEmpty()) {
+            binding.itTelefone.error = "Digite seu número de telefone"
         } else {
             var create = JSONObject()
 
@@ -94,6 +99,7 @@ class CriarCadastro : AppCompatActivity() {
             create.put("email", binding.etEmailCriar.text)
             create.put("senha", binding.etSenhaCriar.text)
             create.put("senha", binding.etSenhaVerificar.text)
+            create.put("phone", binding.etTelefone.text)
 
             requisicaoCadastro(create)
         }

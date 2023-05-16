@@ -202,7 +202,7 @@
         android:id="@+id/id_text_Main_Activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="15dp"
         android:text="Fazer Login"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"

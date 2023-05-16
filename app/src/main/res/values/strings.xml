@@ -12,7 +12,7 @@
     <string name="buttonBack">Login</string>
     <string name="buttonBackToken">Chave</string>
     <string name="textValidateToken">Validade da Chave</string>
-    <string name="textDigiteEmail">Prencha o campo abaixo com e-mail para receber a chave de reset de senha em seu e-mail.</string>
+    <string name="textDigiteEmail">Prencha o campo abaixo com e-mail para receber a chave de reset de senha em seu e-mail ou SMS.</string>
 
     <!--Strings "title" para Toolbar-->
     <string name="titleCadastro">Cadastro</string>
