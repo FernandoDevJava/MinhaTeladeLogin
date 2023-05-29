@@ -106,7 +106,7 @@ object Util {
     }
 
     fun url(): String{
-        return "http://home.lsfcloud.com.br:8080/api/"
+        return "https://springjwt.lsfcloud.com.br/api/"
     }
 
     fun menssagemToast(context: Context, mensagem: String){
